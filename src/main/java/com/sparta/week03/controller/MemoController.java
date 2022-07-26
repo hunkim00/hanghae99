@@ -28,17 +28,21 @@ public class MemoController {
     }
 
     @PutMapping("/api/memos/{id}")
-    public  Long updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto){
-        memoService.update(id, requestDto);
+    public  Long updateMemo(@PathVariable Long id, String password, @RequestBody MemoRequestDto requestDto){
+        memoService.update(id, password, requestDto);
         return id;
     }
 
     @DeleteMapping("/api/memos/{id}")
-    public Long deleteMemo(@PathVariable Long id) {
+    public Long deleteMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
         memoRepository.deleteById(id);
         return id;
     }
 
+    @GetMapping("/posts/{id}")
+    public Memo readOnePost(@PathVariable Long id) {
+        return memoRepository.findById(id).orElse(null);
+    }
 
 
 }
